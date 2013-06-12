@@ -46,4 +46,8 @@ class Size {
     return "{w:${width}, h:${height}}";
   }
   
+  List<num> toList() {
+    return [width, height];
+  }
+  
 }

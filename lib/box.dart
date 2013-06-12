@@ -105,6 +105,10 @@ class Box {
     return "{x:${x}, y:${y}, w:${width}, h:${height}}";
   }
   
+  List<num> toList() {
+    return [x, y, width, height];
+  }
+  
   Box union(Box box) {
     var minX = min(x, box.x);
     var minY = min(y, box.y);

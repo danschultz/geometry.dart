@@ -43,4 +43,8 @@ class Point {
     return "{x:${x}, y:${y}}";
   }
   
+  List<num> toList() {
+    return [x, y];
+  }
+  
 }
