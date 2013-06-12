@@ -47,8 +47,70 @@ class Box {
         width == other.width && height == other.height;
   }
   
+  bool contains({num x, num y, Point pt, Box box}) {
+    var result = true;
+    
+    if (pt != null) {
+      result = result && contains(x: pt.x, y: pt.y);
+    }
+    
+    if (box != null) {
+      result = result && 
+               contains(x: box.x, y: box.y) && 
+               box.right <= right && box.bottom <= bottom;
+    }
+    
+    if (x != null) {
+      result = result && x >= this.x && x <= right;
+    }
+    
+    if (y != null) {
+      result = result && y >= this.y && y <= bottom;
+    }
+    
+    return result;
+  }
+  
+  bool intersects(Box box) {
+    return !intersection(box).isEmpty;
+  }
+  
+  Box intersection(Box box) {
+    var minX = max(x, box.x);
+    var minY = max(y, box.y);
+    var maxX = min(right, box.right);
+    var maxY = min(bottom, box.bottom);
+    return new Box(minX, minY, max(0, maxX-minX), max(0, maxY-minY));
+  }
+  
+  Box move({num x, num y, Point to}) {
+    x = to != null ? to.x : x != null ? x : this.x;
+    y = to != null ? to.y : y != null ? y : this.y;
+    return new Box(x, y, width, height);
+  }
+  
+  Box offset({num dx: 0, num dy: 0, Point by}) {
+    dx = by != null ? by.x : dx;
+    dy = by != null ? by.y : dy;
+    return move(x: x+dx, y: y+dy);
+  }
+  
+  Box resize({num w, num h, Size to}) {
+    w = to != null ? to.width : w != null ? w : width;
+    h = to != null ? to.height : h != null ? h : height;
+    return new Box(x, y, w, h);
+  }
+  
   String toString() {
     return "{x:${x}, y:${y}, w:${width}, h:${height}}";
+  }
+  
+  Box union(Box box) {
+    var minX = min(x, box.x);
+    var minY = min(y, box.y);
+    var maxX = max(right, box.right);
+    var maxY = max(bottom, box.bottom);
+    return new Box(minX, minY, maxX-minX, maxY-minY);
   }
   
 }

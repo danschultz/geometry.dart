@@ -42,6 +42,12 @@ void testPoint() {
       expect(p1 == p3, isFalse);
     });
     
+    test("offset", () {
+      var p = new Point(1, 2);
+      expect(p.offset(dx: 10), equals(new Point(11, 2)));
+      expect(p.offset(dy: 10), equals(new Point(1, 12)));
+    });
+    
   });
   
 }

@@ -16,11 +16,11 @@ class Point {
   }
   
   Point operator +(Point other) {
-    return other != null ? new Point(x + other.x, y + other.y) : this;
+    return other != null ? offset(dx: other.x, dy: other.y) : this;
   }
   
   Point operator -(Point other) {
-    return other != null ? new Point(x - other.x, y - other.y) : this; 
+    return other != null ? offset(dx: -other.x, dy: -other.y) : this; 
   }
   
   Point operator *(num magnitude) {
@@ -33,6 +33,10 @@ class Point {
   
   bool operator ==(Point other) {
     return other != null && x == other.x && y == other.y;
+  }
+  
+  Point offset({num dx: 0, num dy: 0}) {
+    return new Point(x + dx, y + dy);
   }
   
   String toString() {
