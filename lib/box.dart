@@ -23,6 +23,10 @@ class Box {
   num get aspectRatio => size.aspectRatio;
   num get perimeter => size.perimeter;
   bool get isEmpty => size.isEmpty;
+
+  bool get isPortrait => size.isPortrait;
+  bool get isLandscape => size.isLandscape;
+  bool get isSquare => size.isSquare;
   
   const Box(num this.x, num this.y, num this.width, num this.height);
   
@@ -39,6 +43,10 @@ class Box {
                    y != null ? y : 0,
                    width != null ? width : 0,
                    height != null ? height : 0);
+  }
+  
+  factory Box.fromList(List<num> values) {
+    return new Box(values[0], values[1], values[2], values[3]);
   }
   
   bool operator ==(Box other) {

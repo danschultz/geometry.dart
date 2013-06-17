@@ -11,6 +11,9 @@ class Size {
   num get area => width * height;
   num get perimeter => (width + height) * 2;
   bool get isEmpty => area == 0;
+  bool get isPortrait => aspectRatio < 1;
+  bool get isLandscape => aspectRatio > 1;
+  bool get isSquare => aspectRatio == 1;
   
   const Size(num this.width, num this.height);
   
@@ -24,6 +27,10 @@ class Size {
   
   factory Size.square(num size) {
     return new Size(size, size);
+  }
+  
+  factory Size.fromList(List<num> values) {
+    return new Size(values[0], values[1]);
   }
   
   bool operator ==(Size other) {

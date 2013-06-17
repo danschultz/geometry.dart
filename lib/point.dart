@@ -15,6 +15,10 @@ class Point {
     return new Point(x != null ? x : 0, y != null ? y : 0);
   }
   
+  factory Point.fromList(List<num> values) {
+    return new Point(values[0], values[1]);
+  }
+  
   Point operator +(Point other) {
     return other != null ? offset(dx: other.x, dy: other.y) : this;
   }
