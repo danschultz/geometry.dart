@@ -1,4 +1,4 @@
 name: geometry
-version: 0.1.2
+version: 0.1.2+1
 dev_dependencies:
   unittest: 0.5.5

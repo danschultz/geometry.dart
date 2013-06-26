@@ -112,9 +112,9 @@ class Box {
   Box scaleTo(Box other, {String fitOrSlice: fit}) {
     var scale;
     if (fitOrSlice == fit) {
-      scale = size.isLandscape ? other.width / width : other.height / height;
+      scale = min(other.width / width, other.height / height);
     } else if (fitOrSlice == slice) {
-      scale = size.isLandscape ? other.height / height : other.width / width;
+      scale = max(other.height / height, other.width / width);
     }
     
     if (scale != null) {
