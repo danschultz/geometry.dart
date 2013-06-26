@@ -1,6 +1,8 @@
 part of geometry;
 
 class Point {
+
+  static const _ORIGIN = const Point(0, 0);
   
   final num x;
   final num y;
@@ -8,7 +10,7 @@ class Point {
   const Point([num this.x = 0, num this.y = 0]);
   
   factory Point.origin() {
-    return new Point(0, 0);
+    return _ORIGIN;
   }
   
   factory Point.safe(num x, num y) {

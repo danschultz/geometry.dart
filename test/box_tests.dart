@@ -2,7 +2,7 @@ part of geometry_tests;
 
 void testBox() {
   
-  group("box", () {
+  group("Box", () {
     
     Box box;
     
@@ -130,6 +130,22 @@ void testBox() {
     test("union", () {
       expect(box.union(new Box(5, 5, 100, 100)), equals(new Box(5, 5, 100, 100)));
       expect(box.union(new Box(30, 30, 10, 10)), equals(new Box(10, 20, 30, 40)));
+    });
+    
+    test("scaleTo using fit", () {
+      var landscape = new Box(0, 0, 200, 100);
+      var portrait = new Box(0, 0, 100, 200);
+      
+      expect(landscape.scaleTo(portrait, fitOrSlice: fit), equals(new Box(0, 75, 100, 50)));
+      expect(portrait.scaleTo(landscape, fitOrSlice: fit), equals(new Box(75, 0, 50, 100)));
+    });
+    
+    test("scaleTo using slice", () {
+      var landscape = new Box(0, 0, 200, 100);
+      var portrait = new Box(0, 0, 100, 200);
+      
+      expect(landscape.scaleTo(portrait, fitOrSlice: slice), equals(new Box(-150, 0, 400, 200)));
+      expect(portrait.scaleTo(landscape, fitOrSlice: slice), equals(new Box(0, -150, 200, 400)));
     });
     
   });

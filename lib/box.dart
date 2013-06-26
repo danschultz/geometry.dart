@@ -109,6 +109,21 @@ class Box {
     return new Box(x, y, w, h);
   }
   
+  Box scaleTo(Box other, {String fitOrSlice: fit}) {
+    var scale;
+    if (fitOrSlice == fit) {
+      scale = size.isLandscape ? other.width / width : other.height / height;
+    } else if (fitOrSlice == slice) {
+      scale = size.isLandscape ? other.height / height : other.width / width;
+    }
+    
+    if (scale != null) {
+      var newSize = size * scale;
+      return newSize.toBox().move(to: other.center - newSize.center);
+    }
+    return this;
+  }
+  
   String toString() {
     return "{x:${x}, y:${y}, w:${width}, h:${height}}";
   }
@@ -126,3 +141,6 @@ class Box {
   }
   
 }
+
+const fit = "fit";
+const slice = "slice";

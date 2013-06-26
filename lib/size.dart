@@ -45,8 +45,9 @@ class Size {
     return new Size(width/magnitude, height/magnitude);
   }
   
-  Box toBox() {
-    return new Box(0, 0, width, height);
+  Box toBox({Point position}) {
+    position = position != null ? position : new Point.origin();
+    return new Box.positionAndSize(position, this);
   }
   
   String toString() {
