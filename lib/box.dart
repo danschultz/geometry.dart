@@ -34,6 +34,14 @@ class Box {
     return new Box(0, 0, 0, 0);
   }
   
+  factory Box.corners(Point corner1, Point corner2) {
+    var x = min(corner1.x, corner2.x);
+    var y = min(corner1.y, corner2.y);
+    var w = max(corner1.x, corner2.x) - x;
+    var h = max(corner1.y, corner2.y) - y; 
+    return new Box(x, y, w, h);
+  }
+  
   factory Box.positionAndSize(Point position, Size size) {
     return new Box(position.x, position.y, size.width, size.height);
   }

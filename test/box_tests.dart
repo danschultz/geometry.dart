@@ -18,6 +18,14 @@ void testBox() {
       expect(new Box.positionAndSize(new Point(10, 20), new Size(30, 40)), equals(new Box(10, 20, 30, 40)));
     });
     
+    test("corners constructor", () {
+      var corner1 = new Point(10, 20);
+      var corner2 = new Point(30, 40);
+      
+      expect(new Box.corners(corner1, corner2), equals(new Box(10, 20, 20, 20)));
+      expect(new Box.corners(corner2, corner1), equals(new Box(10, 20, 20, 20)));
+    });
+    
     test("== operator", () {
       var box1 = new Box(1, 2, 3, 4);
       var box2 = new Box(1, 2, 3, 4);

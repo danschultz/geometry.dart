@@ -45,6 +45,10 @@ class Point {
     return new Point(x + dx, y + dy);
   }
   
+  Box toBox(Point other) {
+    return new Box.corners(this, other);
+  }
+  
   String toString() {
     return "{x:${x}, y:${y}}";
   }
