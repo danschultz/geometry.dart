@@ -10,6 +10,7 @@ class Size {
   num get aspectRatio => width/height;
   num get area => width * height;
   num get perimeter => (width + height) * 2;
+  
   bool get isEmpty => area == 0;
   bool get isPortrait => aspectRatio < 1;
   bool get isLandscape => aspectRatio > 1;
@@ -38,15 +39,18 @@ class Size {
   }
   
   Size operator *(num magnitude) {
-    return new Size(width*magnitude, height*magnitude);
+    return new Size(width * magnitude, height * magnitude);
   }
   
   Size operator /(num magnitude) {
-    return new Size(width/magnitude, height/magnitude);
+    return new Size(width / magnitude, height / magnitude);
   }
   
-  Box toBox({Point position}) {
-    position = position != null ? position : new Point.origin();
+  Size fitTo(Size other) {
+    return this * min(other.width / width, other.height / height);
+  }
+  
+  Box toBox({Point position: const Point(0, 0)}) {
     return new Box.positionAndSize(position, this);
   }
   

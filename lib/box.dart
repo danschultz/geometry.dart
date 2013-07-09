@@ -63,28 +63,28 @@ class Box {
         width == other.width && height == other.height;
   }
   
-  bool contains({num x, num y, Point pt, Box box}) {
-    var result = true;
+  bool contains(num x, num y, [num width, num height]) {
+    var result = (x >= this.x && x <= right) && (y >= this.y && y <= bottom);
     
-    if (pt != null) {
-      result = result && contains(x: pt.x, y: pt.y);
-    }
-    
-    if (box != null) {
-      result = result && 
-               contains(x: box.x, y: box.y) && 
-               box.right <= right && box.bottom <= bottom;
-    }
-    
-    if (x != null) {
-      result = result && x >= this.x && x <= right;
-    }
-    
-    if (y != null) {
-      result = result && y >= this.y && y <= bottom;
+    if (width != null && height != null) {
+      result = result && (x + width <= right) && (y + height <= bottom);
     }
     
     return result;
+  }
+  
+  bool containsPoint(Point point) {
+    return contains(point.x, point.y);
+  }
+  
+  bool containsBox(Box box) {
+    return contains(box.x, box.y, box.width, box.height);
+  }
+  
+  Box fitTo(Box other) {
+    var scale = min(other.width / width, other.height / height);
+    var newSize = size * scale;
+    return newSize.toBox().moveTo(other.center - newSize.center);
   }
   
   bool intersects(Box box) {
@@ -99,37 +99,44 @@ class Box {
     return new Box(minX, minY, max(0, maxX-minX), max(0, maxY-minY));
   }
   
-  Box move({num x, num y, Point to}) {
-    x = to != null ? to.x : x != null ? x : this.x;
-    y = to != null ? to.y : y != null ? y : this.y;
+  Box move(num x, num y) {
     return new Box(x, y, width, height);
   }
   
-  Box offset({num dx: 0, num dy: 0, Point by}) {
-    dx = by != null ? by.x : dx;
-    dy = by != null ? by.y : dy;
-    return move(x: x+dx, y: y+dy);
+  Box moveTo(Point point) {
+    return move(point.x, point.y);
   }
   
-  Box resize({num w, num h, Size to}) {
-    w = to != null ? to.width : w != null ? w : width;
-    h = to != null ? to.height : h != null ? h : height;
+  Box offset(num dx, num dy) {
+    return move(x + dx, y + dy);
+  }
+  
+  Box offsetBy(Point point) {
+    return offset(point.x, point.y);
+  }
+  
+  Box resize(num w, num h) {
     return new Box(x, y, w, h);
   }
   
+  Box resizeTo(Size size) {
+    return resize(size.width, size.height);
+  }
+  
+  @deprecated
   Box scaleTo(Box other, {String fitOrSlice: fit}) {
-    var scale;
     if (fitOrSlice == fit) {
-      scale = min(other.width / width, other.height / height);
+      return fitTo(other);
     } else if (fitOrSlice == slice) {
-      scale = max(other.height / height, other.width / width);
-    }
-    
-    if (scale != null) {
-      var newSize = size * scale;
-      return newSize.toBox().move(to: other.center - newSize.center);
+      return sliceTo(other);
     }
     return this;
+  }
+  
+  Box sliceTo(Box other) {
+    var scale = max(other.height / height, other.width / width);
+    var newSize = size * scale;
+    return newSize.toBox().moveTo(other.center - newSize.center);
   }
   
   String toString() {
@@ -150,5 +157,8 @@ class Box {
   
 }
 
+@deprecated
 const fit = "fit";
+
+@deprecated
 const slice = "slice";

@@ -83,28 +83,33 @@ void testBox() {
       expect(box.perimeter, equals(140));
     });
     
-    test("contains x", () {
-      expect(box.contains(x: 9), isFalse);
-      expect(box.contains(x: 10), isTrue);
-      expect(box.contains(x: 40), isTrue);
-      expect(box.contains(x: 41), isFalse);
+    test("contains x, y", () {
+      expect(box.contains(9, 19), isFalse);
+      expect(box.contains(10, 20), isTrue);
+      expect(box.contains(40, 60), isTrue);
+      expect(box.contains(41, 61), isFalse);
     });
     
-    test("contains y", () {
-      expect(box.contains(y: 19), isFalse);
-      expect(box.contains(y: 20), isTrue);
-      expect(box.contains(y: 60), isTrue);
-      expect(box.contains(y: 61), isFalse);
+    test("contains x, y, width, height", () {
+      expect(box.contains(9, 19, 10, 10), isFalse);
+      expect(box.contains(10, 20, 30, 40), isTrue);
+      expect(box.contains(30, 40, 30, 40), isFalse);
     });
     
     test("contains point", () {
-      expect(box.contains(pt: new Point(9, 20)), isFalse);
-      expect(box.contains(pt: new Point(10, 19)), isFalse);
-      expect(box.contains(pt: new Point(10, 20)), isTrue);
+      expect(box.containsPoint(new Point(9, 20)), isFalse);
+      expect(box.containsPoint(new Point(10, 19)), isFalse);
+      expect(box.containsPoint(new Point(10, 20)), isTrue);
 
-      expect(box.contains(pt: new Point(40, 60)), isTrue);
-      expect(box.contains(pt: new Point(41, 60)), isFalse);
-      expect(box.contains(pt: new Point(40, 61)), isFalse);
+      expect(box.containsPoint(new Point(40, 60)), isTrue);
+      expect(box.containsPoint(new Point(41, 60)), isFalse);
+      expect(box.containsPoint(new Point(40, 61)), isFalse);
+    });
+    
+    test("contains rect", () {
+      expect(box.containsBox(new Box(10, 19, 10, 10)), isFalse);
+      expect(box.containsBox(new Box(10, 20, 30, 40)), isTrue);
+      expect(box.containsBox(new Box(30, 40, 30, 40)), isFalse);
     });
     
     test("intersection", () {
@@ -118,21 +123,21 @@ void testBox() {
     });
     
     test("move", () {
-      expect(box.move(x: 1), equals(new Box(1, 20, 30, 40)));
-      expect(box.move(y: 1), equals(new Box(10, 1, 30, 40)));
-      expect(box.move(to: new Point(1, 2)), equals(new Box(1, 2, 30, 40)));
+      expect(box.move(1, 20), equals(new Box(1, 20, 30, 40)));
+      expect(box.move(10, 1), equals(new Box(10, 1, 30, 40)));
+      expect(box.moveTo(new Point(1, 2)), equals(new Box(1, 2, 30, 40)));
     });
     
     test("offset", () {
-      expect(box.offset(dx: 1), equals(new Box(11, 20, 30, 40)));
-      expect(box.offset(dy: 1), equals(new Box(10, 21, 30, 40)));
-      expect(box.offset(by: new Point(1, 2)), equals(new Box(11, 22, 30, 40)));
+      expect(box.offset(1, 0), equals(new Box(11, 20, 30, 40)));
+      expect(box.offset(0, 1), equals(new Box(10, 21, 30, 40)));
+      expect(box.offsetBy(new Point(1, 2)), equals(new Box(11, 22, 30, 40)));
     });
     
     test("resize", () {
-      expect(box.resize(w: 10), equals(new Box(10, 20, 10, 40)));
-      expect(box.resize(h: 10), equals(new Box(10, 20, 30, 10)));
-      expect(box.resize(to: new Size(100, 200)), equals(new Box(10, 20, 100, 200)));
+      expect(box.resize(10, 40), equals(new Box(10, 20, 10, 40)));
+      expect(box.resize(30, 10), equals(new Box(10, 20, 30, 10)));
+      expect(box.resizeTo(new Size(100, 200)), equals(new Box(10, 20, 100, 200)));
     });
     
     test("union", () {
@@ -140,6 +145,7 @@ void testBox() {
       expect(box.union(new Box(30, 30, 10, 10)), equals(new Box(10, 20, 30, 40)));
     });
     
+    // Deprecated
     test("scaleTo using fit", () {
       var landscape = new Box(0, 0, 200, 100);
       var portrait = new Box(0, 0, 100, 200);
@@ -147,13 +153,30 @@ void testBox() {
       expect(landscape.scaleTo(portrait, fitOrSlice: fit), equals(new Box(0, 75, 100, 50)));
       expect(portrait.scaleTo(landscape, fitOrSlice: fit), equals(new Box(75, 0, 50, 100)));
     });
-    
+
+    // Deprecated
     test("scaleTo using slice", () {
       var landscape = new Box(0, 0, 200, 100);
       var portrait = new Box(0, 0, 100, 200);
       
       expect(landscape.scaleTo(portrait, fitOrSlice: slice), equals(new Box(-150, 0, 400, 200)));
       expect(portrait.scaleTo(landscape, fitOrSlice: slice), equals(new Box(0, -150, 200, 400)));
+    });
+    
+    test("fitTo", () {
+      var landscape = new Box(0, 0, 200, 100);
+      var portrait = new Box(0, 0, 100, 200);
+      
+      expect(landscape.fitTo(portrait), equals(new Box(0, 75, 100, 50)));
+      expect(portrait.fitTo(landscape), equals(new Box(75, 0, 50, 100)));
+    });
+    
+    test("sliceTo", () {
+      var landscape = new Box(0, 0, 200, 100);
+      var portrait = new Box(0, 0, 100, 200);
+      
+      expect(landscape.sliceTo(portrait), equals(new Box(-150, 0, 400, 200)));
+      expect(portrait.sliceTo(landscape), equals(new Box(0, -150, 200, 400)));
     });
     
   });

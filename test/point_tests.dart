@@ -42,10 +42,14 @@ void testPoint() {
       expect(p1 == p3, isFalse);
     });
     
+    test("distance", () {
+      expect(new Point(-2, 1).distance(1, 5), equals(5));
+    });
+    
     test("offset", () {
       var p = new Point(1, 2);
-      expect(p.offset(dx: 10), equals(new Point(11, 2)));
-      expect(p.offset(dy: 10), equals(new Point(1, 12)));
+      expect(p.offset(10, 0), equals(new Point(11, 2)));
+      expect(p.offset(0, 10), equals(new Point(1, 12)));
     });
     
   });
