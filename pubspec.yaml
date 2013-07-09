@@ -1,4 +1,10 @@
 name: geometry
-version: 0.1.3
+version: 0.2.0
+author: Dan Schultz <schultz.t.dan@gmail.com>
+description: Provides a set of classes and handy utility methods for working with 2D geometry.
+homepage: http://www.github.com/danschultz/geometry.dart
+environment:
+  sdk: '>=0.5.20'
 dev_dependencies:
-  unittest: 0.5.5
+  meta: '>=0.5.20'
+  unittest: '>=0.5.20'
