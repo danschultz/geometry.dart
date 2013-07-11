@@ -58,6 +58,11 @@ void testSize() {
       expect(new Size(50, 100).fitTo(new Size.square(50)), equals(new Size(25, 50)));
     });
     
+    test("transpose", () {
+      var size = new Size(1, 2);
+      expect(size.transpose(), equals(new Size(2, 1)));
+    });
+    
   });
   
 }

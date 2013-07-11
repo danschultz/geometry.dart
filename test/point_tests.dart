@@ -52,6 +52,11 @@ void testPoint() {
       expect(p.offset(0, 10), equals(new Point(1, 12)));
     });
     
+    test("transpose", () {
+      var p = new Point(1, 2);
+      expect(p.transpose(), equals(new Point(2, 1)));
+    });
+    
   });
   
 }

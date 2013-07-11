@@ -58,6 +58,10 @@ class Point {
     return new Box.corners(this, other);
   }
   
+  Point transpose() {
+    return new Point(y, x);
+  }
+  
   String toString() {
     return "{x:${x}, y:${y}}";
   }

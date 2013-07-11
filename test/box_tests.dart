@@ -179,6 +179,10 @@ void testBox() {
       expect(portrait.sliceTo(landscape), equals(new Box(0, -150, 200, 400)));
     });
     
+    test("transpose", () {
+      expect(box.transpose(), equals(new Box(20, 10, 40, 30)));
+    });
+    
   });
   
 }

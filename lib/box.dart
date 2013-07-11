@@ -143,6 +143,10 @@ class Box {
     return "{x:${x}, y:${y}, w:${width}, h:${height}}";
   }
   
+  Box transpose() {
+    return new Box(y, x, height, width);
+  }
+  
   List<num> toList() {
     return [x, y, width, height];
   }

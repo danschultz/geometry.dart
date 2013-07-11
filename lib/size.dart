@@ -54,6 +54,10 @@ class Size {
     return new Box.positionAndSize(position, this);
   }
   
+  Size transpose() {
+    return new Size(height, width);
+  }
+  
   String toString() {
     return "{w:${width}, h:${height}}";
   }
