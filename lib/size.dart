@@ -39,15 +39,27 @@ class Size {
   }
   
   Size operator *(num magnitude) {
-    return new Size(width * magnitude, height * magnitude);
+    return scale(magnitude);
   }
   
   Size operator /(num magnitude) {
-    return new Size(width / magnitude, height / magnitude);
+    return scale(1/magnitude);
   }
   
   Size fitTo(Size other) {
     return this * min(other.width / width, other.height / height);
+  }
+  
+  Box fitToBox(Box other) {
+    return toBox().fitTo(other);
+  }
+  
+  Size scale(num magnitude) {
+    return new Size(width * magnitude, height * magnitude);
+  }
+  
+  Box sliceToBox(Box other) {
+    return toBox().sliceTo(other);
   }
   
   Box toBox({Point position: const Point(0, 0)}) {

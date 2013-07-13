@@ -183,6 +183,14 @@ void testBox() {
       expect(box.transpose(), equals(new Box(20, 10, 40, 30)));
     });
     
+    test("scale (*) operator", () {
+      expect(box * 2, equals(new Box(20, 40, 60, 80)));
+    });
+    
+    test("scale (/) operator", () {
+      expect(box / 2, equals(new Box(5, 10, 15, 20)));
+    });
+    
   });
   
 }

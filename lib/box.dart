@@ -63,6 +63,14 @@ class Box {
         width == other.width && height == other.height;
   }
   
+  Box operator *(num magnitude) {
+    return scale(magnitude);
+  }
+  
+  Box operator /(num magnitude) {
+    return scale(1/magnitude);
+  }
+  
   bool contains(num x, num y, [num width, num height]) {
     var result = (x >= this.x && x <= right) && (y >= this.y && y <= bottom);
     
@@ -131,6 +139,10 @@ class Box {
       return sliceTo(other);
     }
     return this;
+  }
+  
+  Box scale(num magnitude) {
+    return new Box(x * magnitude, y * magnitude, width * magnitude, height * magnitude);
   }
   
   Box sliceTo(Box other) {

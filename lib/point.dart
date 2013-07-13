@@ -29,11 +29,11 @@ class Point {
   }
   
   Point operator *(num magnitude) {
-    return new Point(x * magnitude, y * magnitude);
+    return scale(magnitude);
   }
   
   Point operator /(num magnitude) {
-    return new Point(x / magnitude, y / magnitude);
+    return scale(1/magnitude);
   }
   
   bool operator ==(Point other) {
@@ -52,6 +52,10 @@ class Point {
   
   Point offset(num dx, num dy) {
     return new Point(x + dx, y + dy);
+  }
+  
+  Point scale(num magnitude) {
+    return new Point(x * magnitude, y * magnitude);
   }
   
   Box toBox(Point other) {
