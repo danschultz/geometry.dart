@@ -41,6 +41,16 @@ void testSize() {
       expect(size1 == size4, isFalse);
     });
     
+    test("+ operator", () {
+      var size = new Size(10, 5);
+      expect(size + size, equals(new Size(20, 10)));
+    });
+    
+    test("- operator", () {
+      var size = new Size(10, 5);
+      expect(size - size, equals(new Size(0, 0)));
+    });
+    
     test("* operator", () {
       var size = new Size(10, 5);
       size = size * 2;

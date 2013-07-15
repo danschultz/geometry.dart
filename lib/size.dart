@@ -38,12 +38,22 @@ class Size {
     return other != null && width == other.width && height == other.height;
   }
   
+  int get hashCode => _calculateHash([width, height]);
+  
+  Size operator +(Size other) {
+    return new Size(width + other.width, height + other.height);
+  }
+  
+  Size operator -(Size other) {
+    return new Size(width - other.width, height - other.height);
+  }
+  
   Size operator *(num magnitude) {
     return scale(magnitude);
   }
   
   Size operator /(num magnitude) {
-    return scale(1/magnitude);
+    return scale(1 / magnitude);
   }
   
   Size fitTo(Size other) {
