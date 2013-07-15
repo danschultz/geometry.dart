@@ -35,6 +35,11 @@ void testBox() {
       expect(box1 == box3, isFalse);
     });
     
+    test("hashCode", () {
+      expect(new Box(10, 20, 30, 40).hashCode, equals(new Box(10, 20, 30, 40).hashCode));
+      expect(new Box(10, 20, 30, 40).hashCode, isNot(equals(new Box(5, 20, 30, 40).hashCode)));
+    });
+    
     test("top", () {
       expect(box.top, equals(box.y));
     });

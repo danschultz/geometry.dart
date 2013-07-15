@@ -63,6 +63,8 @@ class Box {
         width == other.width && height == other.height;
   }
   
+  int get hashCode => _calculateHash([x, y, width, height]);
+  
   Box operator *(num magnitude) {
     return scale(magnitude);
   }

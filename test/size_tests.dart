@@ -53,6 +53,11 @@ void testSize() {
       expect(size, equals(new Size(5, 3)));
     });
     
+    test("hashCode", () {
+      expect(new Size(10, 20).hashCode, equals(new Size(10, 20).hashCode));
+      expect(new Size(10, 20).hashCode, isNot(equals(new Size(5, 20).hashCode)));
+    });
+    
     test("fitTo", () {
       expect(new Size(100, 50).fitTo(new Size.square(50)), equals(new Size(50, 25)));
       expect(new Size(50, 100).fitTo(new Size.square(50)), equals(new Size(25, 50)));

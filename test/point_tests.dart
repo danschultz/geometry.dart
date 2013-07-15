@@ -42,6 +42,11 @@ void testPoint() {
       expect(p1 == p3, isFalse);
     });
     
+    test("hashCode", () {
+      expect(new Point(10, 20).hashCode, equals(new Point(10, 20).hashCode));
+      expect(new Point(10, 20).hashCode, isNot(equals(new Point(5, 20).hashCode)));
+    });
+    
     test("distance", () {
       expect(new Point(-2, 1).distance(1, 5), equals(5));
     });

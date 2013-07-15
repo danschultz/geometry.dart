@@ -40,6 +40,8 @@ class Point {
     return other != null && x == other.x && y == other.y;
   }
   
+  int get hashCode => _calculateHash([x, y]);
+  
   double distance(num px, num py) {
     var dx = x - px;
     var dy = y - py;
