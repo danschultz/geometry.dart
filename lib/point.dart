@@ -76,4 +76,8 @@ class Point {
     return [x, y];
   }
   
+  Map<String, num> toMap() {
+    return {"x": x, "y": y};
+  }
+  
 }

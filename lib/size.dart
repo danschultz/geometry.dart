@@ -88,4 +88,8 @@ class Size {
     return [width, height];
   }
   
+  Map<String, num> toMap() {
+    return {"width": width, "height": height};
+  }
+  
 }

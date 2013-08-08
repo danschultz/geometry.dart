@@ -165,6 +165,10 @@ class Box {
     return [x, y, width, height];
   }
   
+  Map<String, num> toMap() {
+    return {"x": x, "y": y, "width": width, "height": height};
+  }
+  
   Box union(Box box) {
     var minX = min(x, box.x);
     var minY = min(y, box.y);
