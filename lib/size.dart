@@ -1,6 +1,6 @@
 part of geometry;
 
-class Size {
+class Size implements Comparable {
   
   final num width;
   final num height;
@@ -90,6 +90,10 @@ class Size {
   
   Map<String, num> toMap() {
     return {"width": width, "height": height};
+  }
+
+  int compareTo(Size other) {
+    return Comparable.compare(this.area, other.area);
   }
   
 }
